@@ -1,0 +1,37 @@
+/* 
+    Created on : 16/06/2015, 16:57:48
+    Author     : Blendo Santos
+*/
+.title_page{
+    color: #D81919;
+    margin: 30px 0;
+    font-weight: bold;
+    text-align: center;
+}
+
+.espaco-top{
+    margin-top: 100px;
+}
+
+.janela-login{
+    width: 60%;
+    margin: 0 auto;
+}
+.btn-login{
+    color: #fff;
+    background-color: #DA4D4D;
+    border-color: #D860AF;
+}
+.btn-login:hover{
+    color: #fff;
+    background-color: #CB3030;
+    border-color: #D860AF;
+}
+.form-control{
+    margin-bottom: 5px;
+}
+
+.txtSenha{
+    text-align: center;
+    font-size: 14px;
+}
