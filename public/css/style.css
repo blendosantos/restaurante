@@ -1,0 +1,210 @@
+/* 
+    Created on : 16/06/2015, 16:57:48
+    Author     : Blendo Santos
+*/
+
+@font-face {
+    font-family: 'Chewy';
+    src: url('../fonts/Chewy.ttf');
+}
+
+body{
+    background: url(../imgs/bg_topo.jpg) no-repeat;
+    background-position: center top;
+    background-size: 100% auto;
+}
+.cont_login a.active {
+    color: rgb(216, 25, 83);
+    text-decoration: underline;
+}
+
+.cont_login{
+    text-align: right;
+    padding-top: 30px;
+}
+.cont_login a, .cont_login a:visited{    
+    color: #000;
+    font-weight: bold;    
+}
+.cont_login a:hover{    
+    color: #ff0000;
+}
+.cont_login a:first-child:after{
+    content: "";
+    margin: 2px 6px;
+    width: 4px;
+    height: 4px;
+    background: url(../imgs/separador_menu.png) no-repeat;
+    display: inline-block;
+}
+.container{
+    position: relative;
+    margin: 0 auto;
+    width: 970px;
+}
+header{   
+    width: 100%;
+    display: block;
+}
+.title_page{
+    color: #D81919;
+    margin: 30px 0;
+    font-weight: bold;
+}
+#titlePage{
+    cursor: pointer;
+}
+.title_form{
+    font-family: 'Chewy', cursive;
+    color: #fff;
+    font-size: 20px; 
+}
+.title_top{
+    margin-top: 30px;
+    font-family: 'Chewy', cursive;
+    color: #d1211b;
+    font-size: 30px;
+}
+.title_novidades{
+    margin-top: 30px;
+    margin-bottom: 20px;
+    font-family: 'Chewy', cursive;
+    color: #d1211b;
+    font-size: 25px;
+    margin-left: 15px;
+}
+.sub_title_form{
+    color: #fff;
+    font-size: 14px; 
+    margin-left: 15px;
+}
+.form_busca{
+    background: url(../imgs/bg_form.png) center no-repeat;
+}
+.btn_agendar{
+    margin-left: 30px;
+    margin-top: 3px;
+    background: url(../imgs/bt_buscar.png) no-repeat;
+    box-shadow: 0px 6px 16px -8px #ba1f16;
+    width: 130px;
+    margin-left: -20px;
+    height: 42px;
+}
+.btn_agendar:active{
+    background: url(../imgs/bt_buscar.png) no-repeat;
+}
+.direita-20{
+    margin-right: 20px;
+}
+.form_busca .form-group{
+    margin-left: 7px;
+}
+
+/* Novidades */
+.border-bottom{
+    border-bottom: 2px #ededed solid;
+    margin: 15px;
+}
+.novidades ul{
+    font-size: 8px;
+    padding: 0;
+    cursor: pointer;
+}
+.novidades ul li{
+    font-size: 18px;
+}
+.novidades p{
+    color: #d1211b;
+    font-size: 17px;
+    margin-bottom: 0 !important;
+}
+.media-body h4{
+    color: #ba1f16;
+}
+.img-media{
+    height: 70px;
+    width: 70px;
+}
+
+.espaco-imgs{
+    margin-top: 20px;
+    margin-bottom: 10px;
+}
+
+.dadosObrigatorio{
+    display: inline-block;
+    color: #999;
+}
+
+/*Footer*/
+.constant-footer{
+    background: url(../imgs/bg_rodape.jpg) no-repeat;
+    background-size: 100% auto;
+    width: 100%;
+    height: 145px;
+}
+.txtFooter{
+    margin-top: 20px;
+}
+
+.bg_ln{
+    font-size: 22px;
+    font-weight: 400;
+    background: url(../img/bg_ln.png);
+    background-repeat: repeat-x;
+    background-position: 0 50%;
+    padding-left: 0px !important;
+    margin-left: 15px;
+    width: 72%;
+}
+
+.bg_ln h4 {
+    background: #FFF;
+    display: table;
+    padding-right: 10px;
+    color: #5f6878;
+    font-size: 18px;
+    font-family: 'pt_sansbold', sans-serif;
+    font-weight: bold;
+}
+
+.bg_lx{
+    font-size: 22px;
+    font-weight: 400;
+    background: url(../img/bg_ln.png);
+    background-repeat: repeat-x;
+    background-position: 0 66%;
+    padding-left: 0px !important;
+    margin-left: 15px;
+    width: 97%;
+}
+
+.bg_lx h1 {
+    background: #FFF;
+    display: table;
+    padding-right: 10px;    
+    font-family: 'Chewy', cursive;
+    color: #d1211b;
+    font-size: 30px;
+}
+
+.btn-cadastro{
+    color: #fff;
+    background-color: #DA4D4D;
+    border-color: #D860AF;
+}
+.btn-cadastro:hover{
+    color: #fff;
+    background-color: #CB3030;
+    border-color: #D860AF;
+}
+
+.btn-negar-modal{
+    color: #FFF;
+    background-color: #939393;
+    border-color: #909090;
+}
+
+.mg-bottom{
+    margin-bottom: 10px;
+}
