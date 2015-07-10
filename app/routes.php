@@ -20,9 +20,13 @@ Route::get('resertPassword', 'AuthController@getResertPassword');
 Route::post('resertPassword', 'AuthController@postResertPassword');
 
             /** Rotas Cadastro de Usuário **/
-Route::get('create-login', 'AuthController@getCadastroUser');
-Route::post('create-login', 'AuthController@postCadastroUser');
+Route::get('create-login', 'AuthController@getCadastro');
+Route::post('create-login', 'AuthController@postCadastro');
 
 Route::controller('produto', 'ProdutoController');
 
 Route::controller('servico', 'ServicoController');
+
+Route::controller('mesa', 'MesaController');
+
+Route::controller('usuario', 'AuthController');

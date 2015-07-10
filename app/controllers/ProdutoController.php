@@ -41,7 +41,6 @@ class ProdutoController extends BaseController {
             $produto->dsProduto = $dsProduto;
             $produto->vlProduto = $vlProduto;
             $produto->qtdProduto = $qtdProduto;
-            $produto->status = 'AT';
             $produto->save();
             return Redirect::to('/produto');
         }

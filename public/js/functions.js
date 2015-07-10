@@ -41,7 +41,7 @@ jQuery(function ($) {
         var dataAtual = dataAtualFormatada();
         var idade = dataAtual.substring(6, 10) - dataIdade.substring(6, 10);
         if (idade < 18) {
-            alert("Por questão de segurança não podemos efetuar cadastro para menores de idade!");
+            bootbox.alert("<h4>Por questão de segurança não podemos efetuar cadastro para menores de 18 anos!</h4>");
             $("#dtNascimento").val("");
         }
     });
