@@ -47,7 +47,6 @@ class ServicoController extends BaseController {
             $servico->dsServico = $dsServico;
             $servico->vlServico = $vlServico;
             $servico->servico = $servicos;
-            $servico->status = 'AT';
             $servico->destaque = $destaque;
             if (Input::hasFile('img')) {
                 $img = Input::file('img');

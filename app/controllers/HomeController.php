@@ -7,6 +7,7 @@
 class HomeController extends BaseController{
 
     public function getIndex() {
-        return View::make('home');
+        $servicos = Servico::destaques();
+        return View::make('home', compact('servicos'));
     }
 }

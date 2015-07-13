@@ -1,22 +1,24 @@
-$('#conteudo').height(($(window).height()) - 100 - 125);
-$(window).on('resize', function () {
-    $('#conteudo').height(($(window).height()) - 100 - 125);
-});
-
-function dataAtualFormatada() {
-    var data = new Date();
-    var dia = data.getDate();
-    if (dia.toString().length == 1)
-        dia = "0" + dia;
-    var mes = data.getMonth() + 1;
-    if (mes.toString().length == 1)
-        mes = "0" + mes;
-    var ano = data.getFullYear();
-    return dia + "/" + mes + "/" + ano;
-}
-;
-
 jQuery(function ($) {
+    $("#titlePage").click(function () {
+        window.location.href = "/";
+    });
+
+    $("#dtNascimento").datepicker({
+        changeYear: true
+    });
+    $("#dtNascimento").mask("99/99/9999");
+    $("#cpf").mask("999.999.999-99");
+    $("#cep").mask("99999-999");
+    $(".telefone").mask("(99) 9999-9999");
+    $('.valor').maskMoney();
+
+    $('.numero').keypress(verificaNumero);
+
+    $('#conteudo').height(($(window).height()) - 110 - 200);
+    $(window).on('resize', function () {
+        $('#conteudo').height(($(window).height()) - 110 - 200);
+    });
+    
     $("#cep").change(function () {
         var cep_code = $(this).val();
         if (cep_code.length <= 0)
@@ -41,11 +43,36 @@ jQuery(function ($) {
         var dataAtual = dataAtualFormatada();
         var idade = dataAtual.substring(6, 10) - dataIdade.substring(6, 10);
         if (idade < 18) {
-            alert("Por questão de segurança não podemos efetuar cadastro para menores de idade!");
+            bootbox.alert("<h4>Por questão de segurança não podemos efetuar cadastro para menores de 18 anos!</h4>");
             $("#dtNascimento").val("");
         }
     });
+
+    $('#conteudo').height(($(window).height()) - 100 - 125);
+    $(window).on('resize', function () {
+        $('#conteudo').height(($(window).height()) - 100 - 125);
+    });
+
+    $("#cargo").change(function () {
+        if ($(this).val() === 'CLI') {
+            $("#vlSalario").hide();
+        } else {
+            $("#vlSalario").show();
+        }
+    })
 });
+
+function dataAtualFormatada() {
+    var data = new Date();
+    var dia = data.getDate();
+    if (dia.toString().length == 1)
+        dia = "0" + dia;
+    var mes = data.getMonth() + 1;
+    if (mes.toString().length == 1)
+        mes = "0" + mes;
+    var ano = data.getFullYear();
+    return dia + "/" + mes + "/" + ano;
+}
 
 function verificaNumero(e) {
     if (e.which != 8 && e.which != 0 && (e.which < 48 || e.which > 57)) {
