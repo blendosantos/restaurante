@@ -30,3 +30,5 @@ Route::controller('servico', 'ServicoController');
 Route::controller('mesa', 'MesaController');
 
 Route::controller('usuario', 'AuthController');
+
+Route::get('usuarios', 'AuthController@getIndex');

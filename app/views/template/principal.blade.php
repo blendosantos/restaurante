@@ -63,23 +63,3 @@
 
     </body>
 </html>
-<script type="text/javascript">
-    $("#titlePage").click(function () {
-        window.location.href = "/";
-    });
-
-    $("#dtNascimento").datepicker({
-        changeYear: true
-    });
-    $("#dtNascimento").mask("99/99/9999");
-    $("#cpf").mask("999.999.999-99");
-    $("#cep").mask("99999-999");
-    $('.valor').maskMoney();
-
-    $('.numero').keypress(verificaNumero);
-
-    $('#conteudo').height(($(window).height()) - 110 - 200);
-    $(window).on('resize', function () {
-        $('#conteudo').height(($(window).height()) - 110 - 200);
-    });
-</script>
