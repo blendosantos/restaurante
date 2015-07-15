@@ -6,7 +6,11 @@ jQuery(function ($) {
     $("#dtNascimento").datepicker({
         changeYear: true
     });
+    $(".data").datepicker({
+        changeYear: true
+    });
     $("#dtNascimento").mask("99/99/9999");
+    $(".data").mask("99/99/9999");
     $("#cpf").mask("999.999.999-99");
     $("#cep").mask("99999-999");
     $(".telefone").mask("(99) 9999-9999");
@@ -139,7 +143,7 @@ function formatReal(mixed) {
 function excluirItem(id) {
     bootbox.confirm({
         title: 'Exclusão',
-        message: 'Deseeja realmente excluir?',
+        message: 'Deseja realmente excluir?',
         buttons: {
             confirm: {
                 label: 'Sim, excluir!',
@@ -153,6 +157,28 @@ function excluirItem(id) {
         callback: function (response) {
             if (response) {
                 location.href = '/' + entity + '/delete?id=' + id;
+            }
+        }
+    });
+}
+
+function statusReserva(id, status) {
+    bootbox.confirm({
+        title: status,
+        message: 'Deseja realmente '+status+'?',
+        buttons: {
+            confirm: {
+                label: 'Sim, '+status+'!',
+                className: 'btn-danger'
+            },
+            cancel: {
+                label: 'Não!',
+                className: 'btn-negar-modal'
+            }
+        },
+        callback: function (response) {
+            if (response) {
+                location.href = '/reserva/'+(status === 'Aprovar' ? 'aprovar' : 'cancelar')+'?id=' + id;
             }
         }
     });

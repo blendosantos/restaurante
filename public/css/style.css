@@ -208,3 +208,8 @@ header{
 .mg-bottom{
     margin-bottom: 10px;
 }
+
+.dadosTabela{
+    text-align: center;
+    color: rgb(218, 77, 77);
+}

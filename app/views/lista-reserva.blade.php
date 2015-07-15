@@ -1,7 +1,7 @@
 @extends('template.principal')
 
 @section('pagina')
-Produto
+Reserva
 @stop
 
 @section('menu-lateral')
@@ -20,12 +20,12 @@ Produto
 <div class="col-xs-9">
     <div class="container">
         <div class="col-xs-9 bg_lx">
-            <h1 class="title_top">Lista Produto</h1>
+            <h1 class="title_top">Lista Reserva</h1>
         </div>
 
         <div class="col-xs-12">
             <div class="pull-right mg-bottom">
-                <a class="btn btn-cadastro btn-sm" href="/produto/cadastro" role="button">Novo</a>
+                <a class="btn btn-cadastro btn-sm" href="/reserva/cadastro" role="button">Novo</a>
                 <button type="button" onclick="janelaModal()" class="btn btn-default btn-sm">Exibir Filtros</button>
             </div>
         </div>
@@ -35,23 +35,42 @@ Produto
             <table class="table table-hover">
                 <thead>
                     <tr>
-                        <th>#</th>
-                        <th>Descrição</th>
-                        <th>Quantidade</th>
-                        <th>Valor</th>
+                        <th>Data Reserva</th>
+                        <th>Solicitante</th>
+                        <th>Telefone</th>
+                        <th>Mesa</th>
+                        <th>Observação</th>
                         <th width="50px;">Ações</th>
                     </tr>
                 </thead>
+                @if (count($reserva) != 0)
+                @foreach ($reserva as $r)
                 <tbody>
+                    <tr>
+                        <td>{{$r->dtReserva}}</td>
+                        <td>{{AuthController::getNomeToId($r->idUserSolicitante)}}</td>
+                        <td>{{AuthController::getTelefoneToId($r->idUserSolicitante)}}</td>
+                        <td>{{$r->idMesa}}</td>
+                        <td>{{$r->obsReserva}}</td>
+                        <td>
+                            <a href="/reserva/cadastro?id={{$r->id}}">{{ HTML::image("img/edit.png", "Editar", array("title" => "Editar")) }}</a>
+                            @if ($r->status == 'AA')
+                            <a onclick="statusReserva({{$r->id}}, 'Aprovar')">{{ HTML::image("img/aprovar.png", "Aprovar", array("title" => "Aprovar")) }}</a>
+                            @else
+                            <a onclick="statusReserva({{$r->id}}, 'Cancelar')">{{ HTML::image("img/inativo.png", "Cancelar", array("title" => "Cancelar")) }}</a>
+                            @endif
+                        </td>
+                    </tr>
                 </tbody>
+                @endforeach
+                @else
+                <tbody>
+                    <tr>
+                        <td colspan="6"><h4 class="dadosTabela">Não Possui Reserva Agendada!</h4></td>
+                    </tr>
+                </tbody>
+                @endif
             </table>
-
-            <ul class="pager">
-                <li><a id="anterior" disabled>Anterior</a></li>
-                <span id="numeracao"></span>
-                <li><a id="proximo">Próximo</a></li>
-            </ul>
-
         </div>
     </div>
 </div>
@@ -64,13 +83,26 @@ Produto
             <div class="modal-content">
                 <div class="modal-header">
                     <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-                    <h4 class="modal-title">Consultar Produto</h4>
+                    <h4 class="modal-title">Consultar Reserva</h4>
                 </div>
                 <div class="modal-body">
                     <div class="container">
                         <div class="col-xs-6 form-group">
-                            <label class="control-label">Descriçao: *</label>
-                            <input type="text" class="form-control" name="descricao" required/>
+                            <label class="control-label">Solicitante:</label>
+                            <input type="text" class="form-control" name="idUserSolicitante" required/>
+                        </div>
+                        <div class="col-xs-12"></div>
+                        <div class="col-xs-2 form-group">
+                            <label class="control-label">Data Reserva:</label>
+                            <input type="text" class="form-control data" name="dataInicio" id="dataInicio" required/>
+                        </div>
+                        <div class="col-xs-2" style="width: 10% !important;">
+                            <label class="control-label">&nbsp;</label>
+                            <input type="text" class="form-control" disabled="" value="Até" style="text-align: center;background-color: #FFF;border: none;font-weight: bolder;"/>
+                        </div>
+                        <div class="col-xs-2 form-group">
+                            <label class="control-label">&nbsp;</label>
+                            <input type="text" class="form-control data" name="dataFinal" id="dataFinal" required/>
                         </div>
                     </div>
                 </div>
@@ -85,30 +117,9 @@ Produto
 
 <!-- SCRIPTS -->
 <script>
-
-    function janelaModal() {
-        $('#janela').modal('show');
-    }
-
-    var dados = <?php echo $produto; ?>;
-    var tamanhoPagina = 10;
-    var pagina = 0;
-    var entity = 'produto';
-
-    function paginar() {
-        $('table > tbody > tr').remove();
-        var tbody = $('table > tbody');
-        for (var i = pagina * tamanhoPagina; i < dados.length && i < (pagina + 1) * tamanhoPagina; i++) {
-            tbody.append(
-                    $('<tr>')
-                    .append($('<td>').append(dados[i].id))
-                    .append($('<td>').append(dados[i].dsProduto))
-                    .append($('<td>').append(dados[i].qtdProduto))
-                    .append($('<td>').append('R$ ' + formatReal(dados[i].vlProduto)))
-                    .append($('<td>').append('<a href="/produto/cadastro?id='+dados[i].id+'">{{ HTML::image("img/edit.png", "Editar", array("title" => "Editar")) }}</a> <a onclick="excluirItem('+dados[i].id+')">{{ HTML::image("img/delete.png", "Deletar", array("title" => "Deletar")) }}</a>'))
-                    )
-        }
-        $('#numeracao').text('Página ' + (pagina + 1) + ' de ' + Math.ceil(dados.length / tamanhoPagina));
-    }
+            function janelaModal() {
+                $('#janela').modal('show');
+            }
+            var entity = 'reserva';
 </script>
 @stop

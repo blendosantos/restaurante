@@ -187,5 +187,12 @@ class AuthController extends BaseController {
         $usuario->delete();
         return Redirect::to('/usuario');
     }
-
+    
+    public static function getNomeToId($id) {
+        return Pessoa::find($id)->nmPessoa;
+    }
+    
+    public static function getTelefoneToId($id) {
+        return Pessoa::find($id)->telefone;
+    }
 }
