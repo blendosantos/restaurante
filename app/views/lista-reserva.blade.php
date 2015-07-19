@@ -50,11 +50,11 @@ Reserva
                         <td>{{$r->dtReserva}}</td>
                         <td>{{AuthController::getNomeToId($r->idUserSolicitante)}}</td>
                         <td>{{AuthController::getTelefoneToId($r->idUserSolicitante)}}</td>
-                        <td>{{$r->idMesa}}</td>
+                        <td>{{MesaController::getMesaToId($r->idMesa)}}</td>
                         <td>{{$r->obsReserva}}</td>
                         <td>
                             <a href="/reserva/cadastro?id={{$r->id}}">{{ HTML::image("img/edit.png", "Editar", array("title" => "Editar")) }}</a>
-                            @if ($r->status == 'AA')
+                            @if ($r->status == 'AA' or $r->status == 'RC')
                             <a onclick="statusReserva({{$r->id}}, 'Aprovar')">{{ HTML::image("img/aprovar.png", "Aprovar", array("title" => "Aprovar")) }}</a>
                             @else
                             <a onclick="statusReserva({{$r->id}}, 'Cancelar')">{{ HTML::image("img/inativo.png", "Cancelar", array("title" => "Cancelar")) }}</a>

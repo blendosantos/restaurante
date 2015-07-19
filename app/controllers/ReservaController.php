@@ -72,6 +72,16 @@ class ReservaController extends BaseController {
     }
     
     public function getAprovar(){
-        return Input::get('id');
+        $reserva = Reserva::find(Input::get('id'));
+        $reserva->status = 'AP';
+        $reserva->save();
+        return Redirect::to('reserva');
+    }
+    
+    public function getCancelar(){
+        $reserva = Reserva::find(Input::get('id'));
+        $reserva->status = 'RC';
+        $reserva->save();
+        return Redirect::to('reserva');
     }
 }

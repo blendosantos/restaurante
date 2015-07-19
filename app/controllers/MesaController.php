@@ -69,4 +69,13 @@ class MesaController extends BaseController {
         return Redirect::to('/mesa');
     }
 
+    public static function getMesaToId($id) {
+        $mesa = Mesa::find($id);
+        $mesaToId = "Nº ".$mesa->nuMesa . ", ".$mesa->localMesa;
+        return $mesaToId;
+    }
+    
+    public static function getMesaActive() {
+        return Mesa::where('status', 'AT')->get();
+    }
 }

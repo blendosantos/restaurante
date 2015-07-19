@@ -195,4 +195,8 @@ class AuthController extends BaseController {
     public static function getTelefoneToId($id) {
         return Pessoa::find($id)->telefone;
     }
+    
+    public static function getUserActive() {
+        return Pessoa::where('status', 'AT')->lists('nmPessoa', 'id');
+    }
 }
