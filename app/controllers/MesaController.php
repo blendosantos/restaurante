@@ -76,6 +76,6 @@ class MesaController extends BaseController {
     }
     
     public static function getMesaActive() {
-        return Mesa::where('status', 'AT')->get();
+        return Mesa::where('status', 'AT')->lists('nuMesa', 'id');
     }
 }

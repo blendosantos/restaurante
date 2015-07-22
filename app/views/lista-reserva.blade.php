@@ -40,7 +40,7 @@ Reserva
                         <th>Telefone</th>
                         <th>Mesa</th>
                         <th>Observação</th>
-                        <th width="50px;">Ações</th>
+                        <th width="80px;">Ações</th>
                     </tr>
                 </thead>
                 @if (count($reserva) != 0)
@@ -59,6 +59,7 @@ Reserva
                             @else
                             <a onclick="statusReserva({{$r->id}}, 'Cancelar')">{{ HTML::image("img/inativo.png", "Cancelar", array("title" => "Cancelar")) }}</a>
                             @endif
+                            <a href="/reserva/lancamento?id={{$r->id}}">{{ HTML::image("img/list-add.png", "Adicionar Serviço/Produto", array("title" => "Adicionar Serviço/Produto")) }}</a>
                         </td>
                     </tr>
                 </tbody>
@@ -77,8 +78,8 @@ Reserva
 
 <!-- -- Janela de Filtro -- -->
 
-<form name="formularioPesquisa" id="formularioPesquisa" method="POST">
-    <div class="modal fade" id="janela" role="dialog">
+<div class="modal fade" id="janela" role="dialog">
+    <form name="formularioPesquisa" id="formularioPesquisa" method="POST">
         <div class="modal-dialog">
             <div class="modal-content">
                 <div class="modal-header">
@@ -89,20 +90,12 @@ Reserva
                     <div class="container">
                         <div class="col-xs-6 form-group">
                             <label class="control-label">Solicitante:</label>
-                            <input type="text" class="form-control" name="idUserSolicitante" required/>
+                            {{Form::select('idUserSolicitante', array('' => '::SELECIONE::') + AuthController::getUserActive(), isset($reserva->idUserSolicitante) ? $reserva->idUserSolicitante : Input::old('idUserSolicitante'), array('class' => 'form-control'))}}
                         </div>
                         <div class="col-xs-12"></div>
-                        <div class="col-xs-2 form-group">
-                            <label class="control-label">Data Reserva:</label>
-                            <input type="text" class="form-control data" name="dataInicio" id="dataInicio" required/>
-                        </div>
-                        <div class="col-xs-2" style="width: 10% !important;">
-                            <label class="control-label">&nbsp;</label>
-                            <input type="text" class="form-control" disabled="" value="Até" style="text-align: center;background-color: #FFF;border: none;font-weight: bolder;"/>
-                        </div>
-                        <div class="col-xs-2 form-group">
-                            <label class="control-label">&nbsp;</label>
-                            <input type="text" class="form-control data" name="dataFinal" id="dataFinal" required/>
+                        <div class="col-xs-3 form-group">
+                            <label class="control-label">Status:</label>
+                            {{Form::select('status', array('' => '::SELECIONE::') + Config::get('status.reserva'), isset($reserva->status) ? $reserva->status : Input::old('status'), array('class' => 'form-control'))}}
                         </div>
                     </div>
                 </div>
@@ -112,14 +105,17 @@ Reserva
                 </div>
             </div><!-- /.modal-content -->
         </div><!-- /.modal-dialog -->
-    </div><!-- /.modal fade -->
-</form>
+    </form>
+</div><!-- /.modal fade -->
 
 <!-- SCRIPTS -->
-<script>
+<script type="text/javascript">
             function janelaModal() {
-                $('#janela').modal('show');
+            $('#janela').modal('show');
             }
-            var entity = 'reserva';
+    var entity = 'reserva';
+            function lancamentoReserva(id){
+            $('#addProServ' + id).modal('show');
+            }
 </script>
 @stop

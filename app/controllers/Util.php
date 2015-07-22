@@ -24,13 +24,13 @@ class Util extends BaseController {
         $caracteres = '';
 
         $caracteres .= $lmin;
-        if ($maiusculas){
+        if ($maiusculas) {
             $caracteres .= $lmai;
         }
-        if ($numeros){
+        if ($numeros) {
             $caracteres .= $num;
         }
-        if ($simbolos){
+        if ($simbolos) {
             $caracteres .= $simb;
         }
 

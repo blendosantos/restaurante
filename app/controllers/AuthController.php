@@ -199,4 +199,8 @@ class AuthController extends BaseController {
     public static function getUserActive() {
         return Pessoa::where('status', 'AT')->lists('nmPessoa', 'id');
     }
+    
+    public static function getUserGarcom() {
+        return DB::table('vw_garcom')->lists('nmPessoa', 'id');
+    }
 }

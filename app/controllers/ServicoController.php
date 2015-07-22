@@ -93,5 +93,9 @@ class ServicoController extends BaseController {
         $servico->delete();
         return Redirect::to('/servico');
     }
+    
+    public static function getServicosActive() {
+        return Servico::where('status', 'AT')->lists('servico', 'id');
+    }
 
 }

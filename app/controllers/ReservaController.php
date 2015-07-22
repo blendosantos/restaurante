@@ -13,14 +13,15 @@ class ReservaController extends BaseController {
     }
 
     public function postIndex() {
-        $dsServico = Input::get('descricao');
-        $servicos = Input::get('servico');
-        if (!empty($dsServico)) {
-            $servico = Servico::where('dsServico', 'like', '%' . $dsServico . '%')->get();
+        $idUserSolicitante = Input::get('idUserSolicitante');
+        $status = Input::get('status');
+
+        if (!empty($idUserSolicitante)) {
+            $reserva = Reserva::where('idUserSolicitante', $idUserSolicitante)->get();
         } else {
-            $servico = Servico::where('servico', 'like', '%' . $servicos . '%')->get();
+            $reserva = Reserva::where('status', $status)->get();
         }
-        return View::make('lista-servico', compact('servico'));
+        return View::make('lista-reserva', compact('reserva'));
     }
 
     public function getCadastro() {
@@ -34,54 +35,104 @@ class ReservaController extends BaseController {
         return View::make('cadastro-reserva');
     }
 
-    public function postCadastro() {        
+    public function postCadastro() {
         $id = Input::get('id');
-        $dsServico = Input::get('dsServico');
-        $destaque = Input::get('destaque');
-        $servicos = Input::get('servico');
-        $vlServico = str_replace(array("R$", "."), "", Input::get('vlServico'));
-        $vlServico = str_replace(",", ".", $vlServico);
-        
+        $idUserSolicitante = Input::get('idUserSolicitante');
+        $idMesa = Input::get('idMesa');
+        $dtReserva = Input::get('dtReserva');
+        $obsReserva = Input::get('obsReserva');
+
         if (isset($id)) {
-            $servico = Servico::find($id);
-            $servico->dsServico = $dsServico;
-            $servico->vlServico = $vlServico;
-            $servico->servico = $servicos;
-            $servico->destaque = $destaque;
-            if (Input::hasFile('img')) {
-                $img = Input::file('img');
-                $img->move('upload/', $img->getClientOriginalName());
-                $servico->img = 'upload/' . $img->getClientOriginalName();
-            }
-            $servico->save();
+            $reserva = Reserva::find($id);
+            $reserva->idUserSolicitante = $idUserSolicitante;
+            $reserva->idMesa = $idMesa;
+            $reserva->dtReserva = $dtReserva;
+            $reserva->obsReserva = $obsReserva;
+
+            $reserva->save();
         } else {
-            $servico = new Servico();
-            $servico->dsServico = $dsServico;
-            $servico->vlServico = $vlServico;
-            $servico->servico = $servicos;
-            $servico->destaque = $destaque;
-            $servico->status = 'AT';
-            if (Input::hasFile('img')) {
-                $img = Input::file('img');
-                $img->move('upload/', $img->getClientOriginalName());
-                $servico->img = 'upload/' . $img->getClientOriginalName();
-            }
-            $servico->save();
+            $reserva = new Reserva();
+            $reserva->idUserSolicitante = $idUserSolicitante;
+            $reserva->idMesa = $idMesa;
+            $reserva->dtReserva = $dtReserva;
+            $reserva->obsReserva = $obsReserva;
+            $reserva->status = 'AP';
+
+            $reserva->save();
         }
-        return Redirect::to('/servico');
+        return Redirect::to('/reserva');
     }
-    
-    public function getAprovar(){
+
+    public function getAprovar() {
         $reserva = Reserva::find(Input::get('id'));
         $reserva->status = 'AP';
         $reserva->save();
         return Redirect::to('reserva');
     }
-    
-    public function getCancelar(){
+
+    public function getCancelar() {
         $reserva = Reserva::find(Input::get('id'));
         $reserva->status = 'RC';
         $reserva->save();
         return Redirect::to('reserva');
     }
+
+    public function getLancamento() {
+        $id = Input::get('id');
+
+        $reserva = Reserva::find($id);
+
+        $produto = DB::table('reserva_produto as rp')
+                ->join('produto as p', 'rp.idProduto', '=', 'p.id')
+                ->where('idReserva', $id)
+                ->select('rp.id', 'p.dsProduto', 'p.vlProduto')
+                ->get();
+
+        $servico = DB::table('reserva_servico as rs')
+                ->join('servico as s', 'rs.idServico', '=', 's.id')
+                ->where('idReserva', $id)
+                ->select('rs.id', 's.servico', 's.dsServico', 's.vlServico')
+                ->get();
+
+        return View::make('lancamento-reserva', compact('reserva', 'produto', 'servico'));
+    }
+
+    public function getCadproduto() {
+        $idReserva = Input::get('idReserva');
+        $idProduto = Input::get('idProduto');
+        
+        DB::table('reserva_produto')->insert(
+                array('idProduto' => $idProduto, 'idReserva' => $idReserva)
+        );
+        return Redirect::to('reserva/lancamento?id='.$idReserva);
+    }
+    
+    public function getCadservico() {
+        $idReserva = Input::get('idReserva');
+        $idServico = Input::get('idServico');
+        
+        DB::table('reserva_servico')->insert(
+                array('idServico' => $idServico, 'idReserva' => $idReserva)
+        );
+        return Redirect::to('reserva/lancamento?id='.$idReserva);
+    }
+    
+    public function getDeletservico() {
+        $idReserva = Input::get('idReserva');
+        $idServico = Input::get('idServico');
+        
+        DB::table('reserva_servico')->where('id', $idServico)->delete();
+        
+        return Redirect::to('reserva/lancamento?id='.$idReserva);
+    }
+    
+    public function getDeletproduto() {
+        $idReserva = Input::get('idReserva');
+        $idProduto = Input::get('idProduto');
+        
+        DB::table('reserva_produto')->where('id', $idProduto)->delete();
+        
+        return Redirect::to('reserva/lancamento?id='.$idReserva);
+    }
+
 }

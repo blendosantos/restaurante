@@ -213,3 +213,23 @@ header{
     text-align: center;
     color: rgb(218, 77, 77);
 }
+
+label.control-label span {
+    font-weight: normal;
+    text-transform: uppercase;
+    font-style: italic;
+}
+
+/** CAIXA */
+
+label.caixa{
+    font-weight: normal !important;
+    font-family: 'Chewy', cursive;
+    color: #d1211b;
+    font-size: 27px;
+}
+label.vlCaixa{
+    border: none;
+    font-size: 25px;
+    color: #000;
+}

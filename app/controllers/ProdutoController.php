@@ -61,5 +61,9 @@ class ProdutoController extends BaseController {
         $produto->delete();
         return Redirect::to('/produto');
     }
+    
+    public static function getProdutosActive() {
+        return Produto::where('status', 'AT')->lists('dsProduto', 'id');
+    }
 
 }

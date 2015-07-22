@@ -20,13 +20,13 @@
                 <!-- SIDEBAR MENU -->
                 <div class="profile-usermenu">
                     <ul class="nav">
-                        <li class="{{ Request::is('reserva') ? 'active' : '' }} {{ Request::is('reserva/cadastro') ? 'active' : '' }}">
+                        <li class="{{ Request::is('reserva') ? 'active' : '' }} {{ Request::is('reserva/cadastro') ? 'active' : '' }} {{ Request::is('reserva/lancamento') ? 'active' : '' }}">
                             <a href="/reserva">
                                 <i class="glyphicon glyphicon-calendar"></i>
                                 Reservas
                             </a>
                         </li>
-                        <li class="{{ Request::is('caixa') ? 'active' : '' }} {{ Request::is('caixa/cadastro') ? 'active' : '' }}">
+                        <li class="{{ Request::is('caixa') ? 'active' : '' }} {{ Request::is('caixa/lancar') ? 'active' : '' }} {{ Request::is('caixa/reserva') ? 'active' : '' }}">
                             <a href="/caixa">
                                 <i class="glyphicon glyphicon-usd"></i>
                                 Caixa

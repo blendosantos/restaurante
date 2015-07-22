@@ -25,17 +25,12 @@ Reserva
 
                     <div class="col-xs-6 form-group">
                         <label class="control-label">Solicitante: *</label>
-                        {{Form::select('idSolicitante', array('' => '::SELECIONE::') + AuthController::getUserActive(), isset($reserva->idSolicitante) ? $reserva->idSolicitante : Input::old('idSolicitante'), array('class' => 'form-control','required' => 'required'))}}
+                        {{Form::select('idUserSolicitante', array('' => '::SELECIONE::') + AuthController::getUserActive(), isset($reserva->idUserSolicitante) ? $reserva->idUserSolicitante : Input::old('idUserSolicitante'), array('class' => 'form-control','required' => 'required'))}}
                     </div>
 
                     <div class="col-xs-3 form-group">
                         <label class="control-label">Mesa: *</label>
-                        <select class="form-control" name="idMesa">
-                            @foreach (MesaController::getMesaActive() as $mesa)
-                            <option value="" selected="selected">::SELECIONE::</option>
-                            <option value="{{$mesa->id}}">{{$mesa->nuMesa." para ".$mesa->qtdPessoas." Pessoas"}}</option>
-                            @endforeach
-                        </select>
+                        {{Form::select('idMesa', array('' => '::SELECIONE::') + MesaController::getMesaActive(), isset($reserva->idMesa) ? $reserva->idMesa : Input::old('idMesa'), array('class' => 'form-control','required' => 'required'))}}
                     </div>
 
                     <div class="col-xs-12"></div>               

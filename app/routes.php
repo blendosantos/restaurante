@@ -33,4 +33,4 @@ Route::controller('usuario', 'AuthController');
 
 Route::controller('reserva', 'ReservaController');
 
-Route::get('nomeSolicitante', 'AuthController@getNomeToId');
+Route::controller('caixa', 'CaixaController');
